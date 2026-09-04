@@ -1,0 +1,1 @@
+TS=2026-09-04T01:03:01Z | TASK=GO_P7 | STATE=DEPLOYED | VERSION=948add4c | NOTE=/go يؤكد الطلب بنفس نداء المعالج (قراءة handoff ثم مفتاح request-launch وlegalAccepted وstateVersion) وكل 400 يحمل كوده | NEEDS_OWNER=اختبار /go من الجوال حتى READY_FOR_CONNECTION
