@@ -16,12 +16,17 @@ cd /private/tmp/claude-501/-Volumes-Claude/9dbc5013-8325-4426-b8ca-12796f23e03e/
 ## 2) SCALE_25 — سقف الجلسات 25: **نُفِّذ** (يحتاج تطبيق migration + نشر)
 رفعت البوابة الفعلية لرحلة /go إلى 25 (`83d6639`،`4bedb00`، مؤكّد محليًا: 25 يدخلون، الـ26 ينتظر). اكتشاف مهم: **الأثر الموقّع `FIVE_REAL_CONCURRENT_SESSION_PROOF` مجرد رمز تأجيل لا يُقرأ وقت التشغيل، ولا يحمل رقم السعة — فلا تحتاج توقيع أي شيء.** العقد الموقّع/جدول التفاوض تركتهما عند 5 لأنهما نظام مؤجّل منفصل ولا يبوّبان /go.
 
-**اعمل خطوتين بالترتيب (من طرفيتك):**
-1) طبّق migration 0093 على D1 الإنتاج (يعيد بناء جدول القبول بـCHECK 1..25، يحفظ الصفوف الحيّة):
+**اعمل خطوتين (بأي ترتيب — مستقلتان):**
+
+**أ) انشر البقية الآن (آمن، لا يعتمد على 0093):** أمر النشر في البند 1. السقف يبقى 5 مع طابور مؤدّب حتى تطبّق 0093 (الكود يولّد سلوت 6+ لكن CHECK الحالي 1..5 يتخطّاه بـINSERT OR IGNORE فيُرجِع «انتظار» — لا خطأ، مؤكّد في الكود سطر 301).
+
+**ب) طبّق 0093 لرفع السقف إلى 25** — سجل d1_migrations على الإنتاج غير متزامن (يحاول 14 من الصفر ويصطدم بجداول موجودة)، فنطبّق 0093 **مباشرة عبر execute** (يتخطّى نظام التتبّع). 0093 مُحصّن الآن: قابل لإعادة التشغيل (DROP IF EXISTS _v2) ويحفظ الصفوف الحيّة (INSERT SELECT قبل DROP). مؤكّد محليًا (نجحت كل العبارات + CHECK صار 1..25):
 ```bash
-cd /private/tmp/claude-501/-Volumes-Claude/9dbc5013-8325-4426-b8ca-12796f23e03e/scratchpad/dabbir-src-restored && git pull && npx wrangler d1 migrations apply dabbir-official-controlled-release --remote --config wrangler.production.jsonc
+cd /private/tmp/claude-501/-Volumes-Claude/9dbc5013-8325-4426-b8ca-12796f23e03e/scratchpad/dabbir-src-restored && git pull && npx wrangler d1 execute dabbir-official-controlled-release --remote --config wrangler.production.jsonc --file drizzle/0093_scale_25_real_session_admissions.sql
 ```
-2) ثم انشر (أمر النشر في البند 1 أعلاه). لو نشرت قبل تطبيق 0093 فلا ضرر — يبقى السقف الفعلي 5 حتى يُطبَّق الـmigration ثم يرتفع 25.
+تحقّق بعده: `... d1 execute dabbir-official-controlled-release --remote --config wrangler.production.jsonc --command "SELECT sql FROM sqlite_master WHERE name='real_session_capacity_admissions';"` — يجب أن يظهر `BETWEEN 1 AND 25`.
+
+(اختياري لاحقًا — إصلاح جذري لسجل الـmigrations: مزامنة جدول d1_migrations ليعرف كل المطبّقة، فيعمل `migrations apply` مستقبلًا. ليس عاجلًا.)
 
 **التدرّج المراقب (اختياري، بالتزامن):** لتثبيت 15 أولًا: اضبط على Cloudflare متغيّر `REAL_SESSION_ACTIVE_LIMIT=15` **مع** `BRIDGE_MAX_SESSIONS=15` على Render، راقب Render Metrics (RAM/CPU)، ثم ارفع الاثنين معًا إلى 25 (أو احذف REAL_SESSION_ACTIVE_LIMIT ليعود للسقف 25). لا تخفض الجسر دون الـworker وحده.
 
