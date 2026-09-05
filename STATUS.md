@@ -1,3 +1,38 @@
+<!-- OPEN_TASKS:START (live list — updated each session; edit in place, don't append) -->
+# 📋 OPEN_TASKS — آخر تحديث 2026-09-05T18:59Z
+
+الحالة: ✅ منجز · 🔄 جارٍ · ⏸️ ينتظر المالك · ⬜ في الطابور
+
+## حاجبة (تجربة العميل)
+- ✅ الطلب العالق يتحرر تلقائيًا + RECOVERY_IN_PROGRESS ينتظر ويكمل — `3fba29a` (منشور، ينتظر نشر المالك)
+- ✅ تسريع الإرسال إلى 5ث (نبض العميل) — `32d685e` (منشور؛ تحقّق فعلي بعد النشر)
+- ✅ الخريطة الحقيقية: تتبع المدينة، بلا «علم أوكرانيا»، تعمل بلا إذن موقع، دائرة مؤطّرة — `531fe1b` (منشور)
+- ✅ لوحة الأونر: كل الأقسام أبيض/أزرق، الداكنة تقاعدت، رحلة العميل، الاقتصاد، أكواد الخصم — `211088e` (منشور)
+
+## السعة (للإعلانات)
+- ✅ رفع ميزانية Serper اليومية 40→2000 (قابلة للضبط بمتغيّر SERPER_DAILY_CALL_BUDGET) — `4b055e9` (منشور)
+- ⏸️ SCALE_25 (سقف الجلسات 5→25 + heavy 10→25): **ليست ثابتة worker بسيطة** — انظر NEEDS_OWNER. غير خطِر: ما يتجاوز 5 ينتظر في طابور بواجهة انتظار (لا انهيار).
+
+## نصوص وأرقام
+- ✅ «3.99 ريال» في /plans — `c70c56f`
+- ✅ نصوص الربط (محادثاتك محمية 100%، الثلاث نقاط) — `8887831`
+- ✅ الأرقام إنجليزية في اللوحة والرحلة (toLocaleString -u-nu-latn) — تحقّق نهائي شامل ضمن DESIGN_SYSTEM
+
+## UX / الهوية
+- 🔄 DESIGN_SYSTEM_LOCK: نظام تصميم موثّق ثابت (design-system.md + tokens + مكوّنات مشتركة) على كل الشاشات — **البند الكبير التالي** (الأساس: GoSteps + ألوان دبّر موجودة)
+
+## ينتظر المالك (⏸️ — لا تُحذف حتى يؤكد المالك)
+- ⏸️ **انشر الدفعة**: كل شيء بعد e35d8d0f منشور على GitHub وينتظر أمر نشر واحد (في NEEDS_OWNER)
+- ⏸️ SCALE_25 سقف الجلسات 25 (عقد موقّع/ثابت — خطوات في NEEDS_OWNER)
+- ⏸️ M1: تدوير أسرار الجسر staging↔prod
+- ⏸️ migration 0091 (مُطبّق فعلًا — للتأكيد فقط)
+- ⏸️ قبل الإطلاق العام: سقف المجهولين 100→5
+- ⏸️ تأكيد ضبط TURNSTILE_SECRET_KEY (يفشل OPEN لو غير مضبوط)
+
+## مؤجّل بوعي (لا يُلمس)
+- ⬜ تفعيل التفاوض (مبني، الراية مطفأة) · الدفع الفعلي · تطبيق iOS · حذف المؤلّف الميت (2292 سطر)
+<!-- OPEN_TASKS:END -->
+
 TS=2026-09-04T04:04:43Z | TASK=GO_P9 | STATE=TESTING | VERSION=5598d86e | NOTE=من tail الإنتاج: محاولتا المتصفح النظيف أنشأتا الطلب ثم رُفضت أول قراءة handoff بـ409 DIFFERENT_REQUEST_ACTIVE لأن مساحة العمل نفسها كانت تحمل جذر طلب أقدم (أحدهما READY_FOR_CONNECTION بلا جلسة منذ 01:07 والآخر BLOCKED_SESSION)، والشاشة بقيت على الخريطة بلا جملة — هذا هو «3 دقائق ثم طوّلنا شوي». المنشور: (5) الطلب الأقدم الخامل يُحرَّر تلقائيًا عبر مسار الإلغاء نفسه (الذي يرفض إلغاء إرسال حيّ) ويُعاد الإنشاء/التأكيد مرة، والحيّ فعلًا يُتبنّى، وأي فشل تأكيد يُقال على شاشة البحث مع «ابدأ من جديد». (1)(2)(3) قياس زمن البحث وتسريعه ≤20 ث والتدفق من أول مزود: workflow القياس يعمل الآن (4 خرائط + بناء الأنيميشن) | NEEDS_OWNER=إعادة محاولة /go من نفس المتصفح النظيف بعد النشر؛ الاقتران حتى CONNECTED (لم يصل أي نداء اقتران إلى الإنتاج بعد)
 TS=2026-09-04T04:26:03Z | TASK=GO_P9 | STATE=DEPLOYED | VERSION=6ad11787 | NOTE=Search leg parallelised (Serper phrasings, organic, page fetches together), provider commit in concurrent chunks, widening rungs time-gated, /go polls ≤1.5 s, wizard streams providers as found; measuring after-times on the next real search | NEEDS_OWNER=none
 TS=2026-09-04T04:31:36Z | TASK=SEARCH_ANIMATION_V2 | STATE=DONE | VERSION=6ad11787 | NOTE=Search-journey animation live on /go (Maps → Search → TikTok → Haraj, real typed queries, 4-source progress bar, rotating captions, ends with results); 375px screenshot and 10 s video captured on production | NEEDS_OWNER=none
@@ -64,3 +99,6 @@ TS=2026-09-05T15:05:00Z | TASK=MAP_REAL | STATE=COMMITTED (deploy pending) | VER
 TS=2026-09-05T15:10:00Z | TASK=UX_OVERHAUL (phase 1) + OWNER_DASHBOARD landing | STATE=COMMITTED (deploy pending) | VERSION=cb9166b | NOTE=UX: an elegant 1-2-3 progress indicator (GoSteps: الطلب→النتائج→الربط, green check for done, blue for current) heads each /go step, replacing the plain text. /owner now lands on the modern white/blue dashboard (the dark console overview retired as the landing; detail sections still reachable from the sidebar). Build passes; 57 baseline. REMAINING (large, best with visual iteration): the full UX sweep across every screen + the complete dashboard pages (customers-journey/requests/sessions/providers/economy/discount-codes) — foundations laid (dashboard overview, /owner swap, stepper) | NEEDS_OWNER=after deploy, open /owner (new dashboard) + /go (stepper)
 TS=2026-09-05T13:00:00Z | TASK=MAP_RADIUS_PROXIMITY_DESIGN | STATE=DESIGN (review) | VERSION=n/a | NOTE=Diagnosed why location doesn't constrain: ranking uses NO location signal (no district/distance), providers store NO lat/lng, Serper captures only city-center coords. Plus a real constraint: S1's CSP (img-src 'self' data: blob:) BLOCKS external map tiles, so a Leaflet/OSM tile map won't render without a CSP change — that's a decision for you. Phased design: Phase 1 (CSP-safe, no schema) — "use my location" (Geolocation API, already allowed by permissions-policy) + radius slider (default 8km); pass ll=@pin to Serper /maps so results are near the pin; ships real proximity now. Phase 2 — add providers.lat/lng + capture per-provider coords from Serper + Haversine radius filter & nearest-first ranking. Phase 3 — the visual pin+draggable-radius picker: either widen CSP for one tile host, or a CSP-safe SVG/canvas circle picker (recommended). Full plan + files in docs/overnight-2026-09-05/MAP_RADIUS_PROXIMITY_DESIGN.md | NEEDS_OWNER=approve Phase 1 to build now; decide Phase-3 CSP (tile map vs safe SVG picker — I recommend the safe picker)
 TS=2026-09-05T13:03:00Z | TASK=OWNER_DASHBOARD_V2_DESIGN | STATE=DESIGN (review) | VERSION=n/a | NOTE=White/blue dashboard: sidebar + KPI cards + SVG progress-ring session counter (X/25, no lib) + recharts (bundled = CSP-safe) + 6 pages (overview/customers/requests/sessions/economy/providers), responsive 375px+desktop, behind requirePlatformAdminPage+AAL2. All data sources already exist (owner/operations.ts, admin/request-executions, COST_REPORT, customer-detail); only a 14-day time-series aggregate is new. Built as a modern view layer over the same data — doesn't break the existing 1,596-line console. Build plan in docs/overnight-2026-09-05/OWNER_DASHBOARD_V2_DESIGN.md | NEEDS_OWNER=approve to build (deploy-gated — visible after deploy)
+TS=2026-09-05T18:20:00Z | TASK=MAP_FIX + STEPPER | STATE=PUSHED (deploy pending) | VERSION=531fe1b | NOTE=الخريطة: أُصلح «علم أوكرانيا» (كان مزيج بلاطات صحراء تان فوق تدرّج أزرق قديم + شعار Leaflet 🇺🇦 في العزو). الآن: أرضية محايدة، minZoom+maxBounds للسعودية (لا خريطة عالم أبدًا)، إزالة شعار Leaflet (setPrefix(false)=«© OpenStreetMap» فقط)، بديل نظيف عند فشل البلاطات (tileerror يُخفي الشبكة ويُبقي الدبوس+الدائرة)، تتمركز على المدينة المختارة (CITY_CENTERS)، تتبع تغيير المدينة (الرياض→جدة تنتقل)، وتؤطّر الدائرة كلها بزوم محسوب (zoomForRadius) فتُرى وتُسحب. المؤشر 1-2-3: كان محشورًا داخل section-heading؛ صار بعرض البطاقة كامل. مؤكد بصريًا: الرياض+جدة، دبوس+دائرة+مقبض داخل الرؤية، لا علم. اختبار MAP_FIX جديد. 57 أساس صفر جديد | NEEDS_OWNER=انشر ثم افتح /go وحدد الموقع
+TS=2026-09-05T18:45:00Z | TASK=OWNER_DASHBOARD_ALL_PAGES | STATE=PUSHED (deploy pending) | VERSION=211088e | NOTE=كل أقسام /owner الآن بتصميم أبيض/أزرق موحّد فوق نفس بيانات loadOwnerOperationsOverview — لا قسم يرجع للوحة الداكنة. dashboard-v2.tsx صار هيكلًا (شريط جانبي مجمّع + رأس) يوزّع على لوحة لكل قسم: نظرة عامة/الحسابات/الطلبات/الجلسات/المزوّدون/جودة الذكاء/الشكاوى/التنبيهات/الاقتصاد/أكواد الخصم/النظام/الأمن/مفاتيح الإيقاف/الإعدادات. مؤشرات KPI + دوائر سعة/نسبة + أعمدة + جداول قابلة للتمرير، كلها أرقام إنجليزية. الحسابات: اضغط عميلًا لرحلته الكاملة (حساب→طلبات→جلسة→طلب جارٍ). الاقتصاد: استهلاك توكنات الذكاء + رسائل المزوّدين + أرصدة الطلبات + توزيع الباقات + اشتراكات نشطة (الأرصدة المالية الحيّة تحتاج مفاتيح=NEEDS_OWNER). أكواد الخصم: جدول كامل. الأمن يبقي تحكّم Tier1. موبايل 375: الشريط شريط رقائق أفقي. اختبار owner-console-contract محدّث (16 مسارًا + لا لوحة داكنة). 57 أساس، tsc نظيف. مؤكد بصريًا سطح مكتب+موبايل | NEEDS_OWNER=انشر ثم افتح /owner وكل قسم
+TS=2026-09-05T18:55:00Z | TASK=SCALE_25 | STATE=PARTIAL (Serper منشور؛ سقف الجلسات ينتظر المالك) | VERSION=4b055e9 | NOTE=Serper: DEFAULT_DAILY_BUDGET 40→2000 (قابل للضبط بمتغيّر). سقف الجلسات: اكتشفت أنه ليس ثابتة worker — «5 جلسات» عقد ثابت متعمّد: slot VALUES(1..5) مكتوبة نصًّا في real-session-capacity، وصف DB بـCHECK(max_real_active_sessions=5) في migration 0062 («immutable evidence»)، وأثر إطلاق موقّع FIVE_REAL_CONCURRENT_SESSION_PROOF. وheavy مربوط بـCHECK(slot_number BETWEEN 1 AND 10). تغيير الثابتة فقط عديم الأثر (الـVALUES تحدّه بـ5) أو يكسر CHECK. bridge=25 مقابل worker=5 آمن (worker هو العنق؛ ما يتجاوز 5 ينتظر في طابور بواجهة انتظار، لا انهيار). الرفع الحقيقي = تغيير عقد إطلاق مُتحكَّم (كود+migrations+توقيع) — انظر NEEDS_OWNER. 57 أساس، صفر جديد | NEEDS_OWNER=قرار: أنفّذ رفع السعة الكامل (سلوتس+migrationين+اختبارات) وأنت تتولّى الأثر الموقّع؟ أم نبقى 5 مع الطابور؟
