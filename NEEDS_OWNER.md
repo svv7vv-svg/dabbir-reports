@@ -2,7 +2,7 @@
 
 ## ★ حزمة ما بعد المتجر (T-018/019/020/021/022) — مبنية على فرع `claude/post-store-package-33rfe7`، تحتاج منك:
 1. **دمج الفرع** (أو النشر منه) في `dabbir-app` و`dabbir-ios`.
-2. **الهجرات الثلاث** (0095 تسويق · 0096 عروض آبل · 0097 عمود negotiable) — أوامرها في `docs/post-store/README.md` بالمستودع.
+2. **الهجرات الثلاث** (0098 تسويق · 0099 عروض آبل · 0100 عمود negotiable — أُزيحت من 0095–0097 لتفادي تصادم مع هجرة V2 في جلسة العمليات) — أوامرها في `docs/post-store/README.md` بالمستودع.
 3. **متغيّرات اختيارية** على الوركر: `LANDING_CTA_PHASE` (`WEB` الآن → `STORE` عند صدور التطبيق مع `APP_STORE_URL`/`APP_STORE_ID`) · `CF_WEB_ANALYTICS_TOKEN` · `APP_STORE_PROVIDER_TOKEN`.
 4. **النشر** `bash deploy-safe.sh` ثم افحص `/` و`/owner/market` و`/owner/discount-codes`.
 5. **iOS**: بناء على الماك (ملفان جديدان في Core/Marketing وFeatures/Payment).
