@@ -6,7 +6,7 @@
 3. **متغيّرات اختيارية** على الوركر: `LANDING_CTA_PHASE` (`WEB` الآن → `STORE` عند صدور التطبيق مع `APP_STORE_URL`/`APP_STORE_ID`) · `CF_WEB_ANALYTICS_TOKEN` · `APP_STORE_PROVIDER_TOKEN`.
 4. **النشر** `bash deploy-safe.sh` ثم افحص `/` و`/owner/market` و`/owner/discount-codes`.
 5. **iOS**: بناء على الماك (ملفان جديدان في Core/Marketing وFeatures/Payment).
-6. **تأكيد افتراضين**: الطلب 3.84 و«فاوض عني» 6.84 (لا العكس) · إزالة «بلس» من العرض.
+6. ~~تأكيد افتراضين~~ — صُحّح الكتالوج وفق D-015 (`PRICING_DOC.md`)؛ لا افتراضات معلّقة.
 
 ---
 
