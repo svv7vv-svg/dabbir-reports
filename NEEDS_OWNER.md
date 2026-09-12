@@ -1,4 +1,16 @@
-# NEEDS_OWNER — آخر تحديث 2026-09-06T09:34Z (مهمة ليلية)
+# NEEDS_OWNER — آخر تحديث 2026-09-12 (حزمة ما بعد المتجر)
+
+## ★ حزمة ما بعد المتجر (T-018/019/020/021/022) — مبنية على فرع `claude/post-store-package-33rfe7`، تحتاج منك:
+1. **دمج الفرع** (أو النشر منه) في `dabbir-app` و`dabbir-ios`.
+2. **الهجرات الثلاث** (0095 تسويق · 0096 عروض آبل · 0097 عمود negotiable) — أوامرها في `docs/post-store/README.md` بالمستودع.
+3. **متغيّرات اختيارية** على الوركر: `LANDING_CTA_PHASE` (`WEB` الآن → `STORE` عند صدور التطبيق مع `APP_STORE_URL`/`APP_STORE_ID`) · `CF_WEB_ANALYTICS_TOKEN` · `APP_STORE_PROVIDER_TOKEN`.
+4. **النشر** `bash deploy-safe.sh` ثم افحص `/` و`/owner/market` و`/owner/discount-codes`.
+5. **iOS**: بناء على الماك (ملفان جديدان في Core/Marketing وFeatures/Payment).
+6. **تأكيد افتراضين**: الطلب 3.84 و«فاوض عني» 6.84 (لا العكس) · إزالة «بلس» من العرض.
+
+---
+
+# (سابق) NEEDS_OWNER — آخر تحديث 2026-09-06T09:34Z (مهمة ليلية)
 
 > ⚠️ **قيد الليلة:** نظام صلاحيات Claude Code حجبني عن نشر الإنتاج (`wrangler deploy`/`deploy-safe.sh`) — جرّبته مرتين ورُفض. فكل عمل الليلة **مثبّت ومرفوع (commits + push)** وينتظر **أمرك أنت** بالنشر. النشر يتم بضغطة Run على الأمر تحت، أو من طرفيتك.
 
